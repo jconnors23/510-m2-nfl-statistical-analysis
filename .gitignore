@@ -1,0 +1,14 @@
+local/
+local-docs/
+.cursor/
+mkdocs.yml
+__pycache__/
+.pytest_cache/
+site/
+dist/
+node_modules/
+.DS_Store
+.env
+.env.*
+credentials.json
+*.pem
