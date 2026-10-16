@@ -1,0 +1,47 @@
+site_name: "Statistical Analysis: Measuring Blazin' 5 Impact on NFL Implied Win Probabilities"
+site_description: A pilot statistical experiment testing whether Colin Cowherd's Blazin' 5 picks move NFL implied win probabilities.
+site_url: https://jconnors23.github.io/510-m2-nfl-statistical-analysis/
+
+theme:
+  name: material
+  icon:
+    logo: material/football
+    repo: fontawesome/brands/github
+  palette:
+    scheme: slate
+    primary: custom
+    accent: custom
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Overview: index.md
+  - Experiment Preparation: pre-experiment-prep.md
+  - Key Question: the-question.md
+  - Planned Experiment: the-experiment.md
+  - Data Collection: data-collection.md
+  - Baseline Readings: baseline-readings.md
+  - Results: conclusions.md

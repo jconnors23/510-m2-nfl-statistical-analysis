@@ -1,0 +1,280 @@
+/* ==========================================================================
+   Measuring Blazin' 5 Impact on NFL Implied Win Probabilities — night theme
+   A "prime-time" dark look: midnight blue / near-black base with white
+   accents and a blue-to-purple highlight for the things that matter (picked
+   games, headline numbers). Applied on top of Material's slate dark scheme.
+   ========================================================================== */
+
+:root {
+  /* Base: midnight blue to black */
+  --nfl-field:        #141a3a;  /* deep navy panel */
+  --nfl-field-dark:   #080a18;  /* near-black page background */
+  --nfl-field-line:   #2a3570;  /* muted indigo border/stripe */
+
+  /* Text + accents */
+  --nfl-chalk:        #f2f3fb;  /* bright off-white */
+  --nfl-orange:       #7c5cff;  /* electric purple, the attention color */
+  --nfl-orange-soft:  #a98bff;
+  --nfl-gold:         #4ea8ff;  /* bright blue for key numbers */
+}
+
+/* Material reads these custom-palette hooks for primary/accent. */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        var(--nfl-field);
+  --md-primary-fg-color--light: var(--nfl-field-line);
+  --md-primary-fg-color--dark:  var(--nfl-field-dark);
+  --md-accent-fg-color:         var(--nfl-orange);
+
+  /* Page + content background: a dark field with faint yard lines. */
+  --md-default-bg-color: var(--nfl-field-dark);
+  --md-typeset-a-color:  var(--nfl-orange-soft);
+}
+
+/* --------------------------------------------------------------------------
+   Table of contents: keep the left nav as the only index.
+   -------------------------------------------------------------------------- */
+.md-sidebar--secondary,
+.md-nav--secondary {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Faint vertical stripes across the main content background.
+   -------------------------------------------------------------------------- */
+.md-main {
+  background-color: var(--nfl-field-dark);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 120px
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Typography — larger, readable, with a scoreboard feel on headings.
+   -------------------------------------------------------------------------- */
+.md-typeset {
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+.md-nav__link {
+  font-size: 0.78rem;
+}
+
+/* Page title: off-white with a purple accent underline. */
+.md-typeset h1 {
+  color: var(--nfl-chalk);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--nfl-orange);
+  padding-bottom: 0.3em;
+}
+
+/* Section headings: a short purple accent tab before the text. */
+.md-typeset h2 {
+  color: var(--nfl-chalk);
+  font-weight: 700;
+  margin-top: 2.2em;
+  padding-left: 0.6em;
+  border-left: 4px solid var(--nfl-orange);
+}
+
+.md-typeset h3 {
+  color: var(--nfl-gold);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Header / top bar: deep navy with a purple underline.
+   -------------------------------------------------------------------------- */
+.md-header {
+  background-color: var(--nfl-field);
+  box-shadow: 0 2px 0 0 var(--nfl-orange);
+}
+
+.md-tabs {
+  background-color: var(--nfl-field);
+}
+
+/* --------------------------------------------------------------------------
+   Links: orange, underline on hover like a highlighted pick.
+   -------------------------------------------------------------------------- */
+.md-typeset a {
+  color: var(--nfl-orange-soft);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  border-bottom: 1px dotted transparent;
+}
+
+.md-typeset a:hover {
+  color: var(--nfl-orange);
+  border-bottom: 1px dotted var(--nfl-orange);
+}
+
+/* --------------------------------------------------------------------------
+   Tables: styled like a printed stat sheet / box score.
+   -------------------------------------------------------------------------- */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--nfl-field-line);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--nfl-field);
+  color: var(--nfl-chalk);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--nfl-orange);
+}
+
+/* Zebra rows, like alternating broadcast-graphic bands. */
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: rgba(42, 53, 112, 0.18);
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background-color: rgba(124, 92, 255, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   Blockquotes and code: tinted to the field palette.
+   -------------------------------------------------------------------------- */
+.md-typeset blockquote {
+  border-left: 4px solid var(--nfl-gold);
+  background-color: rgba(78, 168, 255, 0.07);
+  color: var(--nfl-chalk);
+}
+
+.md-typeset code {
+  background-color: rgba(124, 92, 255, 0.14);
+  color: var(--nfl-orange-soft);
+  border-radius: 4px;
+}
+
+.md-typeset pre > code {
+  color: var(--nfl-chalk);
+  background-color: rgba(0, 0, 0, 0.30);
+}
+
+/* --------------------------------------------------------------------------
+   Bold text (the headline numbers the style guide wants to stand out)
+   gets the bright blue accent so a skimming reader catches it.
+   -------------------------------------------------------------------------- */
+.md-typeset strong {
+  color: var(--nfl-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Mermaid diagrams: sit them on a dark card so the field stripes behind
+   them don't clash.
+   -------------------------------------------------------------------------- */
+.md-typeset .mermaid {
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--nfl-field-line);
+  border-radius: 8px;
+  padding: 1em;
+  margin: 1.4em 0;
+}
+
+/* --------------------------------------------------------------------------
+   Home-page hero banner. Add it to a page with:
+   <div class="field-hero"> ... </div>
+   Renders a prime-time night panel: a blue-to-purple glow over a dark
+   navy backdrop with faint vertical bands.
+   -------------------------------------------------------------------------- */
+.field-hero {
+  position: relative;
+  margin: 0 0 2em 0;
+  padding: 2.2em 1.6em;
+  border-radius: 10px;
+  color: var(--nfl-chalk);
+  text-align: center;
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(124, 92, 255, 0.35), transparent 55%),
+    radial-gradient(120% 140% at 85% 100%, rgba(78, 168, 255, 0.28), transparent 55%),
+    linear-gradient(rgba(8, 10, 24, 0.86), rgba(8, 10, 24, 0.94)),
+    repeating-linear-gradient(
+      90deg,
+      var(--nfl-field) 0px,
+      var(--nfl-field) 58px,
+      var(--nfl-field-line) 58px,
+      var(--nfl-field-line) 60px
+    );
+  border: 1px solid var(--nfl-field-line);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+.field-hero .field-hero__kicker {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nfl-orange);
+  margin-bottom: 0.5em;
+}
+
+.field-hero .field-hero__title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+  margin: 0 0 0.4em 0;
+}
+
+.field-hero .field-hero__sub {
+  font-size: 0.9rem;
+  color: rgba(242, 243, 251, 0.85);
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Scoreboard "stat chips" row for the home page.
+   <div class="stat-row">
+     <div class="stat-chip"><span class="stat-chip__num">5</span>
+       <span class="stat-chip__label">Picked games</span></div>
+     ...
+   </div>
+   -------------------------------------------------------------------------- */
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9em;
+  margin: 1.4em 0 2em 0;
+}
+
+.stat-chip {
+  flex: 1 1 140px;
+  text-align: center;
+  padding: 1em 0.8em;
+  border-radius: 8px;
+  background-color: rgba(20, 26, 58, 0.6);
+  border: 1px solid var(--nfl-field-line);
+  border-top: 3px solid var(--nfl-orange);
+}
+
+.stat-chip .stat-chip__num {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--nfl-gold);
+  line-height: 1;
+}
+
+.stat-chip .stat-chip__label {
+  display: block;
+  margin-top: 0.4em;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(242, 243, 251, 0.82);
+}
