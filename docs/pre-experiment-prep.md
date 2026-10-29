@@ -3,88 +3,98 @@ hide:
   - toc
 ---
 
-# Experiment Preparation
+# :material-clipboard-text: Background and Design
 
-This document is the planning sheet for the study. It walks through each item the written report needs at the design stage: the title, why the study matters, the two competing claims being tested, how the experiment is set up, the variables and controls, and how the data will be gathered. The power analysis and any data cleaning are left for later, and this document says why.
+This page covers why the study exists, the two competing ideas it tests, the hypotheses, the experimental design, the sample-size reasoning, and how the data was collected — everything up to the analysis itself. The analysis and its formulas are on [Methods and Statistical Choices](./statistical-choices.md); the numbers are on [Results and Interpretation](./conclusions.md).
 
-The reader-facing write-up of the same material lives across the rest of this site; this sheet is the short, one-page planning version, and it links out to the page that owns each topic in full.
+!!! success "Data collection complete"
+    A full weekend of data was collected on **Friday, October 25, 2026** — morning prices, evening prices, and the five *Blazin' 5* picks — and checked: 13 games in both the morning and evening files (matching game lists, no missing prices), both the favorite's and the underdog's moneyline recorded at each time, and all five picks logged with a side that matches the game's favorite or underdog correctly.
 
-!!! note "Status: baseline collected"
-    The morning baseline reading was recorded on **Friday, October 16, 2026 at 9:00 AM**, covering the Sunday, October 18 and Monday, October 19 slate. The recorded lines are on the [Baseline Readings](./baseline-readings.md) page. This is the first of the planned snapshots: the *Blazin' 5* picks and the evening reading have not been logged yet, so no comparison has been run.
+## The Question
 
-## Title
+Every Friday on his show *The Herd*, Colin Cowherd names five NFL teams he favors against the point spread. The segment is called the *Blazin' 5*, and it reaches a large national audience of casual sports fans, many of whom also place small bets. The question is direct: **when Cowherd endorses a team, does the betting market move in that team's favor more than it would have on its own?**
 
-**Statistical Analysis: Measuring the Blazin' 5 Impact on NFL Implied Win Probabilities.**
+A betting price can be read as a team's implied chance of winning. If a large number of casual bettors follow Cowherd's picks within the same few hours, a sportsbook may adjust those prices to balance its own risk, and the picked teams would then show a larger shift in their implied chance of winning over the day than teams he did not mention.
 
-A pilot experiment testing whether the five weekly NFL picks that Colin Cowherd announces on his show move the betting market's implied chance of each team winning.
+## Why It Is Interesting
 
-## Background and Motivation
+There are two competing stories, and the study is set up to tell them apart.
 
-Every Friday on his show *The Herd*, Colin Cowherd names five NFL teams he favors against the point spread, in a segment called the *Blazin' 5*. The show reaches a large national audience of casual sports fans, many of whom also place small bets. Betting markets set a price for each team that can be read as that team's implied chance of winning, and sportsbooks adjust those prices as money comes in.
+- **The crowd moves the price.** Millions of casual viewers act on the same five picks within the same few hours. That concentrated, one-directional betting could push the price for those teams noticeably, even though the underlying game has not changed.
+- **The market absorbs it as noise.** Professional bettors and the size of the overall betting pool may outweigh the casual money, leaving the price essentially where it would have been. In this case, a celebrity pick is one small input among many.
 
-The motivation is a simple question with two plausible answers. If a flood of casual bettors follows Cowherd's picks within the same few hours, the prices for those teams could move noticeably even though nothing about the games changed. On the other hand, professional bettors and the sheer size of the overall betting pool might absorb that casual money and leave the prices essentially where they started. The study is set up to tell these two stories apart with a real measurement rather than a guess.
-
-For the fuller version of the intuition, see [Key Question](./the-question.md).
+Neither story is obviously correct ahead of time, which is what makes the question worth a real measurement rather than a guess.
 
 ## Null and Alternative Hypotheses
 
-The study measures, for each team, the change in its implied chance of winning from the morning (before the show) to the evening (after the show). It then compares the average change for the picked teams against the average change for the teams Cowherd did not mention.
+The study measures, for each team, the change in its implied chance of winning from morning to evening, then compares the average change for the picked teams against the average change for the teams Cowherd did not mention.
 
-- **Null hypothesis:** the picked games and the unpicked games have the same average change in implied win probability over the day. Cowherd's segment leaves no measurable mark on the market.
-- **Alternative hypothesis:** the picked games and the unpicked games have a different average change in implied win probability over the day.
+- **Null hypothesis:** the picked games and the unpicked games have the same average change in implied win probability over the day. The *Blazin' 5* leaves no measurable mark on the market.
+- **Alternative hypothesis:** the picked games and the unpicked games have a different average change.
 
-The test looks for a difference in either direction, not just one. The picked teams could move up if casual money inflates them, or down if sharp bettors push back against a popular pick, and both outcomes would be worth reporting.
+The test looks for a difference **in either direction**, because the crowd could inflate a picked team's price or sharp bettors could push back against a popular pick — both outcomes are plausible and both would be worth reporting.
 
-## Description of Experimental Design
+## The Experimental Design
 
-This is a prospective, live pilot. On one game weekend we observe the whole slate of NFL games and sort each one into a treated group or a control group based on a single fact: whether Cowherd named it.
+This is a prospective, observational pilot on one game weekend. Every game on the slate is sorted into one of two groups by a single fact — whether Cowherd named it — and each tracked team's implied win probability is measured at a morning and an evening checkpoint on the same Friday. The outcome for each game is the evening value minus the morning value, in percentage points, and the group averages are compared.
 
-- **Treated group** — the five games endorsed in that week's *Blazin' 5* (5 games).
-- **Control group** — the rest of the slate that Cowherd did not mention. This weekend's baseline holds 13 games in total, so once the five picks are logged the control group will be the remaining 8.
+| Group | What it contains | Size this slate |
+| :--- | :--- | :--- |
+| Picked games | The five games Cowherd endorsed in the *Blazin' 5* | 5 |
+| Control games | The rest of the slate he did not mention | 8 |
 
-For every team we track, we record its implied chance of winning twice on Friday: once in the morning before the show airs, and once in the evening after the betting has settled. The measurement for each team is the evening value minus the morning value. We then compare the average of those changes between the two groups.
+For a picked game, we track the exact team Cowherd endorsed. For a control game, we track the team that was favored in the morning reading: we see which team is the favorite at 9 AM, lock onto that team, and measure its own change through the evening. Choosing the morning favorite before any movement happens keeps the choice of which team to follow independent of the movement we are measuring, and gives both groups a consistent rule.
 
-The design is a quasi-experiment rather than a controlled lab study: we cannot randomly assign which games Cowherd picks, so the groups form from his real choices. This is noted as a limitation below.
-
-For the full design, including why the study uses an implied win probability instead of the point spread, see the [Planned Experiment](./the-experiment.md).
-
-## Independent and Dependent Variables, Control Conditions, Randomization
-
-| Item | What it is |
+| Design element | This study |
 | :--- | :--- |
-| Independent variable | Whether a game was picked by Cowherd (picked or not picked). This is the single thing that separates the two groups. |
-| Dependent variable | The change in a team's implied chance of winning from morning to evening on the same Friday, measured as a percentage. |
-| Control condition | The unpicked games on the same slate, measured over the same hours on the same day, from the same sportsbook. They stand in for "what normal market drift looks like without a pick." |
-| Randomization | None. Cowherd chooses which games to pick, so the groups are not randomly assigned. The study is observational on that point, which is a known limitation of a pilot like this. |
+| Independent variable | Whether a game was picked by Cowherd (picked vs. not picked) |
+| Dependent variable | Change in a team's implied win probability from 9 AM to 9 PM, in percentage points |
+| Control condition | The unpicked games on the same slate, same two clock times, same day, same sportsbook |
+| Randomization | None — Cowherd chooses the picks, so assignment is not random. This makes the study quasi-experimental, noted as a limitation on the Results page. |
 
-To keep the two groups comparable, every price comes from a single sportsbook, and both the morning and evening readings are taken at fixed times for every game.
+### Why a Win Probability Instead of the Point Spread
+
+The study measures the shift in implied win probability rather than the point spread because the probability is easier to track. A point spread only moves in half-point steps (from −3 to −3.5, for example), so a small market shift does not show up until it is big enough to jump a whole half-point. The implied win probability moves in much finer fractional increments, so it registers the small day-to-day movements this study is trying to catch — and a fine-grained percentage is a cleaner number to average and run statistics on.
 
 ## Power Analysis
 
-**Not filled in yet.** A formal power analysis — the calculation of how many games are needed to reliably detect an effect of a given size — belongs with the statistical testing plan, which comes once the measurement approach is locked. It is deliberately left out of this planning sheet for now.
+A power analysis gives the sample size needed to reliably detect a difference of a chosen size. Using a 5% false-alarm rate (α = 0.05) and an 80% chance of detection, for a two-sided two-sample t test with equal groups:
 
-What is already clear, and will frame that later analysis, is that this weekend's 13 games is a small sample. A moderate effect would need on the order of a full season of weekends to detect confidently, so this first run is understood as an underpowered pilot. The exact numbers, the assumed effect size, and the software used will be added when the power analysis is done.
+| Target difference (Cohen's d) | Games per group | Games in total |
+| :--- | ---: | ---: |
+| Moderate (0.5) | 64 | 128 |
+| Large (0.8) | 26 | 52 |
 
-## Assumptions, Calculations, and Software
+These were computed with `statsmodels`. The effect sizes are planning targets chosen in advance, not estimates from this slate. This weekend's 13 games sits far below those requirements, which is expected: a single slate is an **underpowered pilot by design**, meant to prove the measurement works and hint at a direction, not to settle the question.
 
-The planning rests on a few stated assumptions, to be checked when the data is in:
+## Data Collection
 
-- The morning reading, taken before the show airs, is a fair baseline that is not already reacting to the picks.
-- The picked and unpicked games are comparable enough that, absent a tout effect, their prices would drift by similar amounts over the day.
-- Prices from a single sportsbook are a reasonable stand-in for the broader market for this pilot.
+All recording happened on Friday, October 25, 2026, from a single sportsbook (DraftKings), across the 13-game Sunday, October 26 and Monday, October 27 slate.
 
-The only calculation needed at this stage is converting betting odds into an implied chance of winning. A favorite's odds carry a negative number; its win chance is the size of that number divided by the same size plus 100 (for example, -150 becomes 150 ÷ 250, or 60 percent). An underdog's odds carry a positive number; its win chance is 100 divided by that number plus 100 (for example, +130 becomes 100 ÷ 230, or about 43 percent).
+1. **Morning reading (9 AM).** For each game: the favorite, its spread, and both the favorite's and the underdog's moneyline.
+2. **Pick logging.** The five *Blazin' 5* picks and the side named: Falcons `+2.5`, Bengals `+1.5`, Browns `−1.5`, Lions `−3`, Chiefs `+2.5`.
+3. **Evening reading (9 PM).** The same games re-recorded after the market settled.
 
-The analysis will be done in Python. The statistical tools (for the hypothesis test, effect size, and the later power analysis) will come from the `scipy` and `statsmodels` libraries. No results have been computed yet.
+Because each game records both the favorite's and the underdog's own price, every pick is scored directly from the line of the team Cowherd named — three underdogs (Falcons, Bengals, Chiefs) and two favorites (Browns, Lions). **Cleaning:** the files are a straight capture of the posted lines; no cleaning was needed, and the only transformation is the odds-to-probability conversion, covered on [Methods and Statistical Choices](./statistical-choices.md).
 
-## Data Collection and Cleaning Procedures
+## The Morning Lines
 
-**Collection.** All recording happens on Friday around the broadcast. We choose one sportsbook and stay with it for the whole weekend so every number is comparable.
+Each row is one game's favorite, with the spread and moneyline as posted and the implied win probability it works out to.
 
-1. **Morning baseline (9 AM) — done.** Recorded on Friday, October 16, 2026, covering 13 games on the Sunday, October 18 and Monday, October 19 slate. Each row holds the favored team, its spread, and its moneyline. The recorded lines are on the [Baseline Readings](./baseline-readings.md) page.
-2. **Pick logging (around 1 PM) — pending.** Note the five teams Cowherd endorses on the show.
-3. **Evening reading (around 9 PM) — pending.** Record the odds again after the market has settled.
+| Game | Favorite | Spread | Moneyline | Implied win probability |
+| :--- | :--- | ---: | ---: | ---: |
+| Steelers @ Saints (London) | Steelers | -3 | -175 | 63.6% |
+| Browns @ Titans | Browns | -1.5 | -130 | 56.5% |
+| Dolphins @ Jets | Jets | -4.5 | -225 | 69.2% |
+| 49ers @ Falcons | 49ers | -2.5 | -148 | 59.7% |
+| Bengals @ Ravens | Ravens | -1.5 | -118 | 54.1% |
+| Colts @ Vikings | Vikings | -6.5 | -278 | 73.5% |
+| Giants @ Texans | Texans | -10.5 | -520 | 83.9% |
+| Bucs @ Panthers | Panthers | -3 | -162 | 61.8% |
+| Broncos @ Cardinals | Broncos | -4.5 | -230 | 69.7% |
+| Rams @ Raiders | Rams | -3.5 | -192 | 65.8% |
+| Packers @ Lions | Lions | -3 | -170 | 63.0% |
+| Chiefs @ Seahawks | Seahawks | -3 | -142 | 58.7% |
+| Cowboys @ Eagles | Cowboys | -4.5 | -218 | 68.6% |
 
-For the recorded fields and the odds-to-probability conversion in full, see [Data Collection](./data-collection.md).
-
-**Cleaning.** There is **no cleaning step yet**. The baseline file is a straight capture of the lines as posted. The only transformation planned is the odds-to-win-probability conversion described above, which is a direct calculation rather than a cleanup. Once the picks and the evening reading are added, this section will cover any genuine cleaning needed, such as handling a game that is postponed, a line that is pulled off the board, or a late injury report that moves a price for reasons unrelated to the picks.
+The 13 favorites span a range from the **Ravens at 54.1%** (a near-coin-flip game) up to the **Texans at 83.9%** (a heavy favorite). That spread matters: a team already priced in the low 80s has less room to move than a team near 50%.
