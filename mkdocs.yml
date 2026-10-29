@@ -39,9 +39,9 @@ extra_css:
 
 nav:
   - Overview: index.md
-  - Experiment Preparation: pre-experiment-prep.md
-  - Key Question: the-question.md
-  - Planned Experiment: the-experiment.md
-  - Data Collection: data-collection.md
-  - Baseline Readings: baseline-readings.md
-  - Results: conclusions.md
+  - Background and Design: pre-experiment-prep.md
+  - Methods and Statistical Choices: statistical-choices.md
+  - Notebook Walkthrough: notebook-walkthrough.md
+  - Results and Interpretation: conclusions.md
+  - Written Report: report.md
+  - Glossary and References: references.md

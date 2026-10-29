@@ -56,12 +56,21 @@
    Typography — larger, readable, with a scoreboard feel on headings.
    -------------------------------------------------------------------------- */
 .md-typeset {
-  font-size: 0.82rem;
-  line-height: 1.75;
+  font-size: 0.92rem;
+  line-height: 1.8;
 }
 
 .md-nav__link {
-  font-size: 0.78rem;
+  font-size: 0.84rem;
+}
+
+/* Slightly larger, airier tables and list text too. */
+.md-typeset table:not([class]) {
+  font-size: 0.86rem;
+}
+
+.md-typeset li {
+  margin-bottom: 0.35em;
 }
 
 /* Page title: off-white with a purple accent underline. */
@@ -277,4 +286,77 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(242, 243, 251, 0.82);
+}
+
+/* --------------------------------------------------------------------------
+   Admonitions (note / success / warning / info boxes): tint them into the
+   night palette instead of Material's defaults, with a subtle left accent.
+   -------------------------------------------------------------------------- */
+.md-typeset .admonition,
+.md-typeset details {
+  background-color: rgba(20, 26, 58, 0.55);
+  border: 1px solid var(--nfl-field-line);
+  border-left-width: 4px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+}
+
+.md-typeset .admonition-title {
+  background-color: rgba(124, 92, 255, 0.14);
+}
+
+/* Emoji / twemoji icons sit a touch large and aligned with the text. */
+.md-typeset .twemoji {
+  height: 1.1em;
+  width: 1.1em;
+  vertical-align: -0.15em;
+}
+
+/* Icons used as section accents (an emoji at the start of a heading) get a
+   little breathing room. */
+.md-typeset h2 .twemoji,
+.md-typeset h3 .twemoji {
+  margin-right: 0.35em;
+}
+
+/* --------------------------------------------------------------------------
+   Glossary: each term rendered as a definition card so a long list of terms
+   is easy to scan. Markup:
+   <div class="glossary-term" markdown="1">
+   ### Term
+   Definition text.
+   </div>
+   -------------------------------------------------------------------------- */
+.glossary-term {
+  background-color: rgba(20, 26, 58, 0.5);
+  border: 1px solid var(--nfl-field-line);
+  border-left: 4px solid var(--nfl-gold);
+  border-radius: 8px;
+  padding: 0.8em 1.1em;
+  margin: 0.9em 0;
+}
+
+.glossary-term h3 {
+  margin-top: 0.1em;
+  margin-bottom: 0.3em;
+}
+
+/* A plain Markdown definition list, if used, gets the same themed look. */
+.md-typeset dl dt {
+  color: var(--nfl-gold);
+  font-weight: 700;
+  margin-top: 1em;
+}
+
+.md-typeset dl dd {
+  margin-left: 1.2em;
+}
+
+/* --------------------------------------------------------------------------
+   Reference list: numbered, with comfortable spacing and a clear hanging
+   indent so long citations stay readable.
+   -------------------------------------------------------------------------- */
+.md-typeset .references li {
+  margin-bottom: 0.9em;
+  padding-left: 0.3em;
 }
