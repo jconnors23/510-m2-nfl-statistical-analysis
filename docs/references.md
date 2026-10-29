@@ -231,7 +231,7 @@ A follow-up test done *after* finding a significant effect, to pin down where th
 
 <div class="references" markdown="1">
 
-3. **Python** (version 3.11+), used for the full analysis.
+3. **Python** (version 3.12+), used for the full analysis.
 
 4. **pandas** and **NumPy**, for loading the data and computing the shifts. Pinned versions are in `requirements.txt`.
 

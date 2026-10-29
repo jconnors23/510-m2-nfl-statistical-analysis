@@ -73,7 +73,7 @@ Every page under `docs/` is also plain Markdown and reads fine on its own or on 
 
 ### Building It Locally
 
-You will need Python 3.11 or newer. Dependencies are pinned in `requirements.txt`.
+You will need Python 3.12 or newer (the pinned `numpy` requires it). Dependencies are pinned in `requirements.txt`.
 
 Create and activate a virtual environment:
 
