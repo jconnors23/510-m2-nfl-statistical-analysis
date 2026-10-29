@@ -1,6 +1,13 @@
-# Documentation site dependencies. Install into a virtual environment:
+# Install into a virtual environment:
 #   python3 -m venv .venv && source .venv/bin/activate
 #   pip install -r requirements.txt
 # Requires Python 3.11 or newer.
 
+# Documentation site.
 mkdocs-material==9.7.7
+
+# Analysis notebook. These pins reproduce the comparison.
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+statsmodels==0.15.0
