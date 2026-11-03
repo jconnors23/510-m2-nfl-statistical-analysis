@@ -29,5 +29,9 @@ The [Full Report](./report.md) contains the complete study start to finish. The 
 | :--- | :--- |
 | [Full Report](./report.md) | The complete study |
 | [Notebook Walkthrough](./notebook-walkthrough.md) | The analysis code explained |
-| [Win % Calculation](./calculation.md) | Every number worked by hand |
+| [Win % Calculation](./calculation.md) | Every number worked step by step |
 | [References and Appendix](./references.md) | Data sources and a glossary of terms |
+
+## Watch the Presentation
+
+A recorded walkthrough of this study is on YouTube: [watch the presentation](https://www.youtube.com/watch?v=DD7weJ0z4f8).

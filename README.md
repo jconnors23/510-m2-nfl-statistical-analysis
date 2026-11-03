@@ -6,7 +6,7 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 
 > **Start here: the [Full Report](./docs/report.md)** is the complete study, read start to finish, and answers most questions on its own.
 >
-> **Presentation: [Josiah_Connors_M2_Presentation.pdf](./Josiah_Connors_M2_Presentation.pdf)** is the slide deck for this study.
+> **Presentation: [Josiah_Connors_M2_Presentation.pdf](./Josiah_Connors_M2_Presentation.pdf)** is the slide deck, or [watch the presentation](https://www.youtube.com/watch?v=DD7weJ0z4f8).
 >
 > **How it was built: the [AI Design Manifest](./ai-design-manifest.md)** documents which AI interface drove each stage of the work.
 
@@ -16,7 +16,8 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 | :--- | :--- |
 | The complete study, start to finish (primary deliverable) | [Full Report](./docs/report.md) |
 | The presentation slide deck | [Josiah_Connors_M2_Presentation.pdf](./Josiah_Connors_M2_Presentation.pdf) |
-| Every number worked by hand | [Win % Calculation](./docs/calculation.md) |
+| The recorded presentation (video) | [Watch on YouTube](https://www.youtube.com/watch?v=DD7weJ0z4f8) |
+| Every number worked step by step | [Win % Calculation](./docs/calculation.md) |
 | The analysis code, explained top to bottom | [Notebook Walkthrough](./docs/notebook-walkthrough.md) |
 | Data sources and a glossary of terms | [References and Appendix](./docs/references.md) |
 | Which AI tool was used at each stage | [AI Design Manifest](./ai-design-manifest.md) |
@@ -43,7 +44,7 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 After the [Full Report](./docs/report.md), go to the page that matches what you want:
 
 - To **see the code** that produces the numbers → [Notebook Walkthrough](./docs/notebook-walkthrough.md)
-- To **check any number by hand**, from a betting price to the final result → [Win % Calculation](./docs/calculation.md)
+- To **check any number step by step**, from a betting price to the final result → [Win % Calculation](./docs/calculation.md)
 - To **look up a term** (p-value, Cohen's d, power analysis, the tests) or find the **data sources** → [References and Appendix](./docs/references.md)
 - To see **which AI interface drove each stage** → [AI Design Manifest](./ai-design-manifest.md)
 
@@ -68,7 +69,7 @@ After the [Full Report](./docs/report.md), go to the page that matches what you 
 ├── docs/                              # the full write-up (served as a site)
 │   ├── index.md                       # Overview
 │   ├── report.md                      # Full Report (primary deliverable)
-│   ├── calculation.md                 # Win % Calculation (every number by hand)
+│   ├── calculation.md                 # Win % Calculation (every number step by step)
 │   ├── notebook-walkthrough.md        # Notebook Walkthrough
 │   ├── references.md                  # References and Appendix (glossary)
 │   └── stylesheets/
