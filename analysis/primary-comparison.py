@@ -26,8 +26,8 @@ from statsmodels.stats.weightstats import CompareMeans, DescrStatsW
 
 # Settings, fixed before looking at the data so the result can't be tuned.
 SIGNIFICANCE_CUTOFF = 0.05           # below this p-value, a difference counts as "beyond chance"
-TARGET_POWER = 0.80                  # used only for the sample-size calculation at the end
-PLANNING_EFFECT_SIZES = (0.5, 0.8)   # "moderate" and "large" targets for that calculation
+TARGET_POWER = 0.80                  # used only for the power analysis at the end
+PLANNING_EFFECT_SIZES = (0.5,)       # the "moderate" Cohen's d target for that calculation
 
 DATA_DIR = Path("data") if Path("data").exists() else Path("../data")
 
