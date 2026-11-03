@@ -3,13 +3,36 @@ hide:
   - toc
 ---
 
-# :material-book-open-variant: Glossary and References
+# :material-book-open-variant: References and Appendix
 
-This page has two parts. First, a **glossary** defining every statistical and betting term used in this project. Second, the **references**: the data sources and tools the study relied on.
+The data sources the study drew on, a note on how AI tools were used at each stage, and an appendix: a plain-language glossary of every statistical and betting term used.
 
-## :material-school: Glossary of Terms
+## :material-link-variant: References
 
-Every term below appears somewhere in the study, defined in plain language and using the study's own example numbers where it helps.
+<div class="references" markdown="1">
+
+1. **Colin Cowherd's *Blazin' 5* picks.** *The Herd with Colin Cowherd*, episode segment (video). The five NFL picks and the sides named were logged from this broadcast. <https://www.youtube.com/watch?v=fuRkH_gVIwE&t=443s>
+
+2. **NFL betting odds (moneylines), provided by DraftKings.** ESPN NFL Odds. Morning and evening moneylines for every game on the slate were recorded from this source. <https://www.espn.com/nfl/odds>
+
+</div>
+
+## :material-robot-outline: AI Design Manifest
+
+This study was produced through AI-driven development across multiple specialized interfaces.
+
+| Stage | Interface | Contribution |
+| :--- | :--- | :--- |
+| Project inception and ideation | Gemini | Conversational development of the research question and the study's framing. |
+| Analysis implementation | Cursor | Authoring and executing the notebook and scripts that transform the odds and compute the results. |
+| Documentation and report | Kiro | All documentation and the full report — structure, overview, and conceptual iteration — authored from the finished code and data. |
+| Presentation imagery | ChatGPT | Generation of the figures used in the presentation materials. |
+
+All analytical choices, thresholds, data collection, and final review were directed by the author; the tools assisted within each stage above.
+
+## :material-school: Appendix: Glossary of Terms
+
+Every statistical and betting term used in this study, defined in plain language and using the study's own example numbers where it helps.
 
 ### The Core Idea
 
@@ -153,12 +176,19 @@ How *big* a difference is, separate from whether it is statistically significant
 
 <div class="glossary-term" markdown="1">
 ### Cohen's d
-A common effect-size measure: the gap between two group means expressed in standard-deviation units. Rough guide: 0.2 small, 0.5 moderate, 0.8 large. This study's d = **0.83**, a large gap — the reason the result is called "suggestive" despite not being significant.
+A common effect-size measure: the gap between two group means expressed in standard-deviation units. Rough guide: 0.2 small, 0.5 moderate, 0.8 large. This study's d = **0.83**, which lands in the "large" band on that scale.
+
+**What "large" does and does not mean.** Cohen's d only measures size on a standardized scale; it says nothing about whether the gap is real or whether it matters in practice. In this study it is neither clearly real nor clearly meaningful:
+
+- **Not statistically significant** — the p-value (0.175) says 13 games is too little data to rule out chance, and a "large" d is exactly what a tiny sample produces whether or not a real effect exists.
+- **Possibly not practically significant** — the actual gap is 0.86 percentage points of win probability, which may be too small to matter much even if it were confirmed.
+
+So d is reported because it is a standard part of the analysis, not as evidence anything was found. Its one real use is to give a larger study a rough target to aim at when sizing its [power analysis](./report.md#v-power-analysis).
 </div>
 
 <div class="glossary-term" markdown="1">
 ### Confidence interval (95%)
-A range of plausible values for the true difference, built so that this kind of range would capture the truth 95% of the time. This study's interval is **−0.44 to +2.16 points**. Because it crosses zero, "no difference" is still plausible.
+A range of plausible values for the true difference, built so that this kind of range would capture the truth 95% of the time. This study's interval is **−0.44 to +2.16 percentage points**. Because it crosses zero, "no difference" is still plausible.
 </div>
 
 ### Power and Sample Size
@@ -181,13 +211,13 @@ Having too small a sample to reliably detect the effect of interest. A deliberat
 ### The Specific Tests Used
 
 <div class="glossary-term" markdown="1">
-### Two-sample t test
-A test that compares the means of two groups to see if they differ more than chance would explain. The "pooled" (standard) version assumes the two groups have similar spread. This study used the pooled two-sample t test.
+### Two-sided two-sample Student's t-test
+A test that compares the means of two groups to see if they differ more than chance would explain. The Student's version assumes the two groups have similar variance; this study used it (Welch's version is the alternative when the variances differ).
 </div>
 
 <div class="glossary-term" markdown="1">
-### Welch's t test
-A version of the t test that does **not** assume the two groups are equally spread. It is the fallback if the equal-spread check fails. Not needed here, since the spreads were similar.
+### Welch's t-test
+A version of the t-test that does **not** assume the two groups have equal variance. It is the fallback if the equal-variance check fails. Not needed here, since the variances were similar.
 </div>
 
 <div class="glossary-term" markdown="1">
@@ -197,50 +227,15 @@ A test that compares two groups by ranking all the values instead of averaging t
 
 <div class="glossary-term" markdown="1">
 ### Shapiro-Wilk test
-A check for whether a group's values are roughly normal (bell-shaped). Used to decide whether a t test is appropriate. Note: on very small samples it has little power, so passing it is weak evidence.
+A check for whether a group's values are roughly normal (bell-shaped). Used to decide whether a t-test is appropriate. Note: on very small samples it has little power, so passing it is weak evidence.
 </div>
 
 <div class="glossary-term" markdown="1">
 ### Levene's test
-A check for whether two groups are about equally spread out. The study uses the median-centered version, which is sturdier against one unusual value. It decides between the pooled and Welch t tests.
+A check for whether two groups have about equal variance. The study uses the median-centered version, which is sturdier against one unusual value. It decides between the two-sample Student's and Welch's t-tests.
 </div>
 
 <div class="glossary-term" markdown="1">
 ### Normal distribution (bell curve)
 The common symmetric, bell-shaped pattern many measurements follow. Several tests assume the data is roughly normal, which is why the Shapiro-Wilk check exists.
 </div>
-
-<div class="glossary-term" markdown="1">
-### Post hoc test
-A follow-up test done *after* finding a significant effect, to pin down where the difference lies. None is used here because nothing significant was found.
-</div>
-
-## :material-link-variant: References
-
-### Data Sources
-
-<div class="references" markdown="1">
-
-1. **Colin Cowherd's *Blazin' 5* picks.** *The Herd with Colin Cowherd*, episode segment (video). The five NFL picks and the sides named were logged from this broadcast. <https://www.youtube.com/watch?v=fuRkH_gVIwE&t=443s>
-
-2. **NFL betting odds (moneylines), provided by DraftKings.** ESPN NFL Odds. Morning and evening moneylines for every game on the slate were recorded from this source. <https://www.espn.com/nfl/odds>
-
-</div>
-
-### Software and Tools
-
-<div class="references" markdown="1">
-
-3. **Python** (version 3.12+), used for the full analysis.
-
-4. **pandas** and **NumPy**, for loading the data and computing the shifts. Pinned versions are in `requirements.txt`.
-
-5. **SciPy** (`scipy.stats`), for the Shapiro-Wilk, Levene, and Mann-Whitney tests.
-
-6. **statsmodels** (`statsmodels.stats`), for the two-sample t test, the confidence interval, and the power analysis (`TTestIndPower`).
-
-7. **MkDocs** with the **Material for MkDocs** theme, used to build this documentation site.
-
-</div>
-
-> **Note on citation style:** the data sources above are listed with the exact links used. If a formal citation style (APA, MLA) is required for submission, format entries 1–2 accordingly and add access dates.

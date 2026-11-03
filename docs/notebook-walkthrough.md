@@ -5,7 +5,7 @@ hide:
 
 # :material-code-braces: Notebook Walkthrough
 
-This page walks through the analysis code top to bottom and explains what each part does, so the full computation can be followed and reproduced without opening a code editor. The code lives in `analysis/primary-comparison.py`; the companion notebook `analysis/primary-comparison.ipynb` simply runs that file and displays its results. The conceptual reasoning behind the choices is on [Methods and Statistical Choices](./statistical-choices.md); this page is the code itself, section by section.
+This page walks through the analysis code top to bottom and explains what each part does, so the full computation can be followed and reproduced without opening a code editor. The code lives in `analysis/primary-comparison.py`; the companion notebook `analysis/primary-comparison.ipynb` simply runs that file and displays its results. The conceptual reasoning behind the choices is in the [Full Report](./report.md); this page is the code itself, section by section.
 
 The script runs end to end with:
 
@@ -13,11 +13,11 @@ The script runs end to end with:
 python analysis/primary-comparison.py
 ```
 
-It reads three CSV files from `data/` and prints three tables: the per-game shifts, the group comparison, and the sample size the design would need.
+It reads three CSV files from `data/` and prints three tables: the per-game shifts, the group comparison, and the power analysis (the sample size a full study would need).
 
 ## 1. Imports and Settings
 
-The script imports its tools and fixes the settings used throughout. `pandas` and `numpy` handle the data and arithmetic; `scipy.stats` supplies the assumption checks and the rank-based test; `statsmodels` supplies the t test, the confidence interval, and the power calculation. The settings have descriptive names and are fixed in advance, so the analysis cannot be tuned to the result.
+The script imports its tools and fixes the settings used throughout. `pandas` and `numpy` handle the data and arithmetic; `scipy.stats` supplies the assumption checks and the rank-based test; `statsmodels` supplies the t-test, the confidence interval, and the power calculation.
 
 ```python
 from pathlib import Path
@@ -29,8 +29,8 @@ from statsmodels.stats.power import TTestIndPower
 from statsmodels.stats.weightstats import CompareMeans, DescrStatsW
 
 SIGNIFICANCE_CUTOFF = 0.05           # below this p-value, a difference counts as "beyond chance"
-TARGET_POWER = 0.80                  # used only for the sample-size calculation at the end
-PLANNING_EFFECT_SIZES = (0.5, 0.8)   # "moderate" and "large" targets for that calculation
+TARGET_POWER = 0.80                  # used only for the power analysis at the end
+PLANNING_EFFECT_SIZES = (0.5,)       # the "moderate" Cohen's d target for that calculation
 
 DATA_DIR = Path("data") if Path("data").exists() else Path("../data")
 ```
@@ -51,7 +51,7 @@ def win_chance(moneyline):
     return np.where(price < 0, size / (size + 100), 100 / (price + 100))
 ```
 
-The full explanation of this formula is on [Methods and Statistical Choices](./statistical-choices.md).
+The full explanation of this formula is in [Win % Calculation](./calculation.md).
 
 ## 3. Step 1 — Read the Three Files
 
@@ -144,11 +144,11 @@ Bengals     1.5     ...Ravens   ravens     Bengals
                   rams @ raiders    rams        <NA>
 ```
 
-The last two lines name two booleans the rest of the script reuses: `is_picked` (true for the five picked games) and `picked_is_favorite` (for a picked game, whether the endorsed team is the favorite — e.g. true for the Browns and Lions, false for the three underdog picks). The data is 13 hand-entered rows verified by eye, so no match-count guard is needed; at this scale a guard would only restate what a glance confirms.
+The last two lines name two booleans the rest of the script reuses: `is_picked` (true for the five picked games) and `picked_is_favorite` (for a picked game, whether the endorsed team is the favorite — e.g. true for the Browns and Lions, false for the three underdog picks).
 
 ## 6. Step 4 — Follow the Right Team and Measure Its Change
 
-This is the heart of the analysis. The script follows the underdog only when Cowherd picked the underdog; otherwise it follows the favorite (every control game, plus favorite picks). The **shift** is that team's evening win chance minus its morning win chance.
+The script follows the underdog only when Cowherd picked the underdog; otherwise it follows the favorite (every control game, plus favorite picks). The **shift** is that team's evening win chance minus its morning win chance.
 
 ```python
 follow_underdog = is_picked & ~picked_is_favorite
@@ -188,7 +188,7 @@ These two lists of shifts are the numbers the whole comparison is built on.
 
 ## 7. Step 5 — Check the Conditions That Decide the Test
 
-Before comparing averages, the script checks two conditions: whether each group is roughly bell-shaped (Shapiro-Wilk) and whether the two groups are about equally spread (Levene, centered on the median). A p-value at or above 0.05 means "no strong reason to doubt it." These checks only decide which test is valid; they are not findings.
+Before comparing averages, the script checks two conditions: whether each group is roughly bell-shaped (Shapiro-Wilk) and whether the two groups have about equal variance (Levene, centered on the median). A p-value at or above 0.05 means "no strong reason to doubt it."
 
 ```python
 picked_normality_p = stats.shapiro(picked_shifts).pvalue
@@ -204,13 +204,13 @@ spreads_are_equal = equal_spread_p >= SIGNIFICANCE_CUTOFF
 ```
 picked_normality_p   = 0.369   (>= 0.05, so the picked shifts look normal enough)
 control_normality_p  = 0.638   (>= 0.05, so the control shifts look normal enough)
-equal_spread_p       = 0.840   (>= 0.05, so the two groups are similarly spread)
+equal_spread_p       = 0.840   (>= 0.05, so the two groups have similar variance)
 
 both_groups_normal   = True
 spreads_are_equal    = True
 ```
 
-All three checks pass, which points the next step to the standard pooled t test.
+All three checks pass, which points the next step to the two-sided two-sample Student's t-test.
 
 ## 8. Step 6 — Compare the Two Groups
 
@@ -235,11 +235,11 @@ cohens_d = mean_difference / np.sqrt(pooled_variance)
 
 ```
 mean_difference = 0.00857        (picked rose 0.86 percentage points more than control)
-ci_low, ci_high = -0.00443, 0.02157   (95% interval: -0.44 to +2.16 points)
-cohens_d        = 0.827          (a large effect size)
+ci_low, ci_high = -0.00443, 0.02157   (95% interval: -0.44 to +2.16 percentage points)
+cohens_d        = 0.827          (the effect size)
 ```
 
-Still part of Step 6, the script then runs the chosen test. If both groups passed the normality check it uses a two-sided t test (the standard pooled version, or Welch's if the spreads differed); otherwise it falls back to the Mann-Whitney U test, which ranks the shift values instead of averaging them.
+Still part of Step 6, the script then runs the chosen test. If both groups passed the normality check it uses a two-sided two-sample t-test (Student's if the variances are similar, or Welch's if they differ); otherwise it falls back to the Mann-Whitney U test, which ranks the shift values instead of averaging them.
 
 ```python
 if both_groups_normal:
@@ -251,7 +251,7 @@ else:
     test_name = "mann-whitney u"
 ```
 
-On the collected data both groups passed, so the standard pooled t test was used:
+On the collected data both groups passed, so the two-sided two-sample Student's t-test was used:
 
 ```
 test_name      = "student t"
@@ -259,11 +259,11 @@ test_statistic = 1.451
 p_value        = 0.175     (above the 0.05 cutoff -> not statistically significant)
 ```
 
-So the picked games did move more than the control games (a large effect size), but with only 13 games the difference is not strong enough to rule out chance.
+So the picked games moved a little more than the control games, but with only 13 games the difference is not strong enough to rule out chance — and the gap itself may be too small to matter much in practice.
 
-## 9. The Sample-Size (Power) Calculation
+## 9. The Power Analysis
 
-Separately from the test, the script computes how many games a full study would need to reliably detect a moderate and a large effect, at the fixed cutoff and target power. This describes the design, not the evidence this weekend carries.
+Separately from the test, the power analysis computes how many games a full study would need to reliably detect a moderate effect (Cohen's d = 0.5), at the fixed cutoff and target power.
 
 ```python
 power = TTestIndPower()
@@ -283,10 +283,9 @@ sample_size["total"] = 2 * sample_size["n_per_group"]
 ```
   d  n_per_group  total
 0.5         64.0  128.0
-0.8         26.0   52.0
 ```
 
-A full study would need about 128 games to reliably detect a moderate effect, or 52 for a large one — far more than this weekend's 13.
+A full study would need about 128 games to reliably detect a moderate effect — far more than this weekend's 13.
 
 ## 10. Outputs
 
@@ -312,4 +311,8 @@ p                     0.17
 reject_null           False    (not significant at the 5% cutoff)
 ```
 
-See [Results and Interpretation](./conclusions.md) for what these values mean and how to read them.
+See the [Full Report](./report.md#viii-interpretation-of-results) for what these values mean and how to read them.
+
+---
+
+For definitions of any term used here, see the glossary in the [References and Appendix](./references.md).
