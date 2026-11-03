@@ -5,7 +5,7 @@ hide:
 
 # Win % Calculation
 
-This page shows the full calculation behind the study, so every number can be reproduced by hand. It covers converting a betting price into a plain percentage chance of winning, fixing which team's chance each game tracks, defining the one per-game number the test runs on, and then working the whole comparison step by step to the final results table. The design, hypotheses, test choice, and interpretation are in the [Full Report](./report.md).
+This page shows the full calculation behind the study, so every number can be reproduced step by step. It covers converting a betting price into a plain percentage chance of winning, fixing which team's chance each game tracks, defining the one per-game number the test runs on, and then working the whole comparison step by step to the final results table. The design, hypotheses, test choice, and interpretation are in the [Full Report](./report.md).
 
 ## What a Betting Price Is
 
