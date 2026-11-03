@@ -4,6 +4,10 @@ Does a famous sports-media personality's weekly NFL picks actually move the bett
 
 Because the data is a single weekend of 13 games, this is a pilot — a first look to see whether the measurement works and whether the effect is worth a larger study, not a final verdict. **The result:** the picked games moved about 0.86 percentage points more than the rest, in the direction an endorsement effect would predict, but the difference was not statistically significant (p = 0.175) and is small enough that it may not matter in practice even if real. The honest read is a direction worth a larger study, not a confirmed effect.
 
+> **Start here: the [Full Report](./docs/report.md)** is the complete study, read start to finish, and answers most questions on its own.
+>
+> **How it was built: the [AI Design Manifest](./ai-design-manifest.md)** documents which AI interface drove each stage of the work.
+
 ## What This Study Contains
 
 | Part | Where |
@@ -33,12 +37,12 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 
 ## Where to Read Next
 
-New here? Start with the **[Full Report](./docs/report.md)** — it is the complete study, read start to finish, and answers most questions on its own. From there, go to the page that matches what you want:
+After the [Full Report](./docs/report.md), go to the page that matches what you want:
 
 - To **see the code** that produces the numbers → [Notebook Walkthrough](./docs/notebook-walkthrough.md)
 - To **check any number by hand**, from a betting price to the final result → [Win % Calculation](./docs/calculation.md)
 - To **look up a term** (p-value, Cohen's d, power analysis, the tests) or find the **data sources** → [References and Appendix](./docs/references.md)
-- To see **which AI tool was used at each stage** → [AI Design Manifest](./ai-design-manifest.md)
+- To see **which AI interface drove each stage** → [AI Design Manifest](./ai-design-manifest.md)
 
 ## Repository Layout
 
