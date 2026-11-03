@@ -6,6 +6,8 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 
 > **Start here: the [Full Report](./docs/report.md)** is the complete study, read start to finish, and answers most questions on its own.
 >
+> **Presentation: [Josiah_Connors_M2_Presentation.pdf](./Josiah_Connors_M2_Presentation.pdf)** is the slide deck for this study.
+>
 > **How it was built: the [AI Design Manifest](./ai-design-manifest.md)** documents which AI interface drove each stage of the work.
 
 ## What This Study Contains
@@ -13,6 +15,7 @@ Because the data is a single weekend of 13 games, this is a pilot — a first lo
 | Part | Where |
 | :--- | :--- |
 | The complete study, start to finish (primary deliverable) | [Full Report](./docs/report.md) |
+| The presentation slide deck | [Josiah_Connors_M2_Presentation.pdf](./Josiah_Connors_M2_Presentation.pdf) |
 | Every number worked by hand | [Win % Calculation](./docs/calculation.md) |
 | The analysis code, explained top to bottom | [Notebook Walkthrough](./docs/notebook-walkthrough.md) |
 | Data sources and a glossary of terms | [References and Appendix](./docs/references.md) |
@@ -48,28 +51,29 @@ After the [Full Report](./docs/report.md), go to the page that matches what you 
 
 ```text
 510-m2/
-├── README.md                     # this file, the front door
-├── ai-design-manifest.md         # which AI tool was used at each stage
-├── requirements.txt              # pinned docs + analysis dependencies
-├── data/                         # the recorded odds and picks (CSV)
+├── README.md                          # this file, the front door
+├── Josiah_Connors_M2_Presentation.pdf # the presentation slide deck
+├── ai-design-manifest.md              # which AI tool was used at each stage
+├── requirements.txt                   # pinned docs + analysis dependencies
+├── data/                              # the recorded odds and picks (CSV)
 │   ├── odds-before-9am.csv
 │   ├── odds-after-9pm.csv
 │   └── picks-chosen.csv
-├── analysis/                     # the comparison code
-│   ├── primary-comparison.py     # reads data/, computes the shifts and the test
-│   └── primary-comparison.ipynb  # presents what the script computed
+├── analysis/                          # the comparison code
+│   ├── primary-comparison.py          # reads data/, computes the shifts and the test
+│   └── primary-comparison.ipynb       # presents what the script computed
 ├── .github/
 │   └── workflows/
-│       └── deploy-docs.yml       # builds + publishes the site to GitHub Pages
-├── docs/                         # the full write-up (served as a site)
-│   ├── index.md                  # Overview
-│   ├── report.md                 # Full Report (primary deliverable)
-│   ├── calculation.md            # Win % Calculation (every number by hand)
-│   ├── notebook-walkthrough.md   # Notebook Walkthrough
-│   ├── references.md             # References and Appendix (glossary)
+│       └── deploy-docs.yml            # builds + publishes the site to GitHub Pages
+├── docs/                              # the full write-up (served as a site)
+│   ├── index.md                       # Overview
+│   ├── report.md                      # Full Report (primary deliverable)
+│   ├── calculation.md                 # Win % Calculation (every number by hand)
+│   ├── notebook-walkthrough.md        # Notebook Walkthrough
+│   ├── references.md                  # References and Appendix (glossary)
 │   └── stylesheets/
 │       └── extra.css
-└── mkdocs.yml                    # documentation site config
+└── mkdocs.yml                         # documentation site config
 ```
 
 ## Reading the Docs as a Site
